@@ -51,7 +51,7 @@ cfg-if = "1.0"
 raw-window-handle = "0.6"
 serde = { version = "1.0", features = ["derive"], optional = true }
 bytemuck = { version = "1.5", optional = true }
-wgpu-types = { version = "23", optional = true }
+wgpu-types = { git = "https://github.com/gfx-rs/wgpu", rev = "6a60458", optional = true }
 accesskit = "0.17"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
