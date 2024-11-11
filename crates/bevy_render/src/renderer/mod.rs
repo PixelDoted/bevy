@@ -444,6 +444,20 @@ impl<'w> RenderContext<'w> {
         TrackedRenderPass::new(&self.render_device, render_pass)
     }
 
+    /// Builds the provided Blas and Tlas acceleration structures
+    pub fn build_acceleration_structures<'a>(
+        &'a mut self,
+        blas: impl IntoIterator<Item = &'a wgpu::BlasBuildEntry<'a>>,
+        tlas: impl IntoIterator<Item = &'a wgpu::TlasPackage>,
+    ) {
+        let command_encoder = self.command_encoder.get_or_insert_with(|| {
+            self.render_device
+                .create_command_encoder(&wgpu::CommandEncoderDescriptor::default())
+        });
+
+        command_encoder.build_acceleration_structures(blas, tlas);
+    }
+
     /// Append a [`CommandBuffer`] to the command buffer queue.
     ///
     /// If present, this will flush the currently unflushed [`CommandEncoder`]

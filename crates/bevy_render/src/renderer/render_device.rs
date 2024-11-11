@@ -10,6 +10,7 @@ use wgpu::{
     util::DeviceExt, BindGroupDescriptor, BindGroupEntry, BindGroupLayoutDescriptor,
     BindGroupLayoutEntry, BufferAsyncError, BufferBindingType, MaintainResult,
 };
+use wgpu::{Blas, Tlas};
 
 /// This GPU device is responsible for the creation of most rendering and compute resources.
 #[derive(Resource, Clone)]
@@ -172,6 +173,20 @@ impl RenderDevice {
     pub fn create_buffer_with_data(&self, desc: &wgpu::util::BufferInitDescriptor) -> Buffer {
         let wgpu_buffer = self.device.create_buffer_init(desc);
         Buffer::from(wgpu_buffer)
+    }
+
+    /// Creates a [`Blas`]
+    pub fn create_blas(
+        &self,
+        desc: &wgpu::CreateBlasDescriptor,
+        sizes: wgpu::BlasGeometrySizeDescriptors,
+    ) -> Blas {
+        self.device.create_blas(desc, sizes)
+    }
+
+    /// Creates a [`Tlas`]
+    pub fn create_tlas(&self, desc: &wgpu::CreateTlasDescriptor) -> Tlas {
+        self.device.create_tlas(desc)
     }
 
     /// Creates a new [`Texture`] and initializes it with the specified data.
