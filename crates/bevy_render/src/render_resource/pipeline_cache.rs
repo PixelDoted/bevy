@@ -1071,6 +1071,10 @@ fn get_capabilities(features: Features, downlevel: DownlevelFlags) -> Capabiliti
         Capabilities::SUBGROUP_VERTEX_STAGE,
         features.contains(Features::SUBGROUP_VERTEX),
     );
+    capabilities.set(
+        Capabilities::RAY_QUERY,
+        features.contains(Features::EXPERIMENTAL_RAY_QUERY),
+    );
 
     capabilities
 }
